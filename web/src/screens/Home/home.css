@@ -1,0 +1,22 @@
+.no-notes {
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-notes img {
+    width: 240px;
+}
+
+.no-notes p {
+    font-family: "IBM Plex Sans";
+    font-weight: 500;
+    font-size: 20pt;
+    text-align: center;
+    color: #e4e4e7;
+    margin-top: 0.75em;
+}
