@@ -3,9 +3,19 @@ import ColorButton from "../../components/ColorButton"
 
 import BackButton from "../../assets/back.svg"
 import ImageButton from "../../assets/image.svg"
-import ColorPicker from "../../assets/color-picker.svg"
+import ColorPickerImage from "../../assets/color-picker.svg"
 
-import "./create-note.css"
+import {
+    Button,
+    ColorInput,
+    ColorPicker,
+    ColorSelection,
+    ColorSelectionLabel,
+    ColorsWrapper,
+    Form,
+    NoteTextArea,
+    TitleInput
+} from "./styles"
 
 export default function CreateNote() {
     return (
@@ -14,37 +24,36 @@ export default function CreateNote() {
                 leftButton={{ image: BackButton, url: "/" }}
                 rightButton={{ image: ImageButton, url: "/" }}
             />
-            <form>
-                <input
-                    type="text"
-                    className="title-input"
-                    placeholder="Title..."
-                />
-                <div className="colors-wrapper">
+            <Form>
+                <TitleInput name="title" placeholder="Title..." />
+
+                <ColorsWrapper>
                     <p>Color:</p>
-                    <div className="color-selection">
+
+                    <ColorSelection>
                         <ColorButton color="#E924B2"></ColorButton>
                         <ColorButton color="#1446F9"></ColorButton>
                         <ColorButton color="#1DF64D"></ColorButton>
                         {/* opens hidden color input */}
-                        <label htmlFor="color-input">
-                            <img
-                                className="color-picker"
-                                src={ColorPicker}
-                                alt=""
-                            />
-                        </label>
-                        <input type="color" id="color-input" />
-                    </div>
-                </div>
-                <textarea
-                    className="note-text"
+                        <ColorSelectionLabel htmlFor="color-input">
+                            <ColorPicker src={ColorPickerImage} alt="" />
+                        </ColorSelectionLabel>
+                        <ColorInput
+                            name="note-color"
+                            type="color"
+                            id="color-input"
+                        />
+                    </ColorSelection>
+
+                </ColorsWrapper>
+
+                <NoteTextArea
+                    name="note-text"
                     placeholder="Write your text here..."
                 />
-                <button className="save-button">
-                    Save changes
-                </button>
-            </form>
+                
+                <Button style={{backgroundColor: '#131A3C'}}>Save changes</Button>
+            </Form>
         </>
     )
 }

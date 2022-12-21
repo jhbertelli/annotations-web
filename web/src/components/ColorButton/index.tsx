@@ -1,4 +1,4 @@
-import "./color-button.css"
+import { Button } from "./styles"
 
 interface Props {
     color: string
@@ -6,9 +6,9 @@ interface Props {
 
 export default function ColorButton(props: Props) {
     return (
-        <div
+        <Button
             className="color-button"
             style={{ backgroundColor: props.color }}
-        ></div>
+        ></Button>
     )
 }

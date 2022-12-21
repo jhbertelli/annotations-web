@@ -1,4 +1,4 @@
-import "./header.css"
+import { HeaderButton, StyledHeader } from "./styles"
 
 interface Props {
     leftButton?: {
@@ -13,21 +13,22 @@ interface Props {
 
 export default function Header(props: Props) {
     return (
-        <header>
+        <StyledHeader>
             {props.leftButton ? (
-                <a href={props.leftButton.url} style={{ left: 0 }}>
+                <HeaderButton href={props.leftButton.url} style={{ left: 0 }}>
                     <img src={props.leftButton.image} />
-                </a>
+                </HeaderButton>
             ) : (
                 ""
             )}
+            
             {props.rightButton ? (
-                <a href={props.rightButton.url} style={{ right: 0 }}>
+                <HeaderButton href={props.rightButton.url} style={{ right: 0 }}>
                     <img src={props.rightButton.image} />
-                </a>
+                </HeaderButton>
             ) : (
                 ""
             )}
-        </header>
+        </StyledHeader>
     )
 }

@@ -1,12 +1,10 @@
-* {
-    outline: none;
-    border: none;
-}
+import styled from "styled-components"
 
-form {
+export const Form = styled.form`
     padding-top: 4em;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
+    margin: 0 auto 1em auto;
     width: 85%;
 
     display: flex;
@@ -15,9 +13,9 @@ form {
 
     font: 500 12pt "Josefin Sans";
     color: #f3f4f6;
-}
+`
 
-.title-input {
+export const TitleInput = styled.input`
     width: 100%;
     padding: 1em 0;
 
@@ -26,14 +24,14 @@ form {
     
     color: inherit;
     font: inherit;
-}
 
-.title-input::placeholder {
-    opacity: 1;
-    color: inherit;
-}
+    ::placeholder {
+        opacity: 1;
+        color: inherit;
+    }
+`
 
-.colors-wrapper {
+export const ColorsWrapper = styled.div`
     padding: 1em 0;
     width: 100%;
 
@@ -42,35 +40,35 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+`
 
-.color-selection {
+export const ColorSelection = styled.div`
     position: relative;
     display: flex;
     align-items: center;
     gap: 1em;
-}
+`
 
-.color-selection label {
+export const ColorSelectionLabel = styled.label`
     width: 20px;
     height: 20px;
-}
+`
 
-.color-picker {
+export const ColorPicker = styled.img`
     width: 100%;
     height: 100%;
-}
+`
 
-#color-input {
+export const ColorInput = styled.input`
     position: absolute;
     right: 0;
     bottom: 0;
     width: 0;
     height: 0;
     opacity: 0;
-}
+`
 
-.note-text {
+export const NoteTextArea = styled.textarea`
     width: 100%;
     min-width: 100%;
     max-width: 100%;
@@ -86,16 +84,12 @@ form {
 
     font: inherit;
     color: #9ca3af;
-}
+`
 
-button {
+export const Button = styled.button`
     width: 100%;
     padding: 1em 0;
     font: 600 11pt "Josefin Sans";
     text-transform: uppercase;
     color: inherit;
-}
-
-.save-button {
-    background-color: #131A3C;
-}
+`
