@@ -2,9 +2,7 @@ import styled from "styled-components"
 
 export const Form = styled.form`
     padding-top: 4em;
-    /* margin-left: auto;
-    margin-right: auto; */
-    margin: 0 auto 1em auto;
+    margin: 0 auto 0 auto;
     width: 85%;
 
     display: flex;
@@ -21,7 +19,7 @@ export const TitleInput = styled.input`
 
     background-color: transparent;
     border-bottom: #f3f4f6 1px solid;
-    
+
     color: inherit;
     font: inherit;
 
@@ -31,7 +29,7 @@ export const TitleInput = styled.input`
     }
 `
 
-export const ColorsWrapper = styled.div`
+export const ColorsContainer = styled.div`
     padding: 1em 0;
     width: 100%;
 
@@ -74,7 +72,7 @@ export const NoteTextArea = styled.textarea`
     max-width: 100%;
     min-height: 24em;
     padding: 1em;
-    margin: 1.25em 0;
+    margin: 1.25em 0 0.75em 0;
     box-sizing: border-box;
 
     opacity: 0.4;
@@ -86,10 +84,9 @@ export const NoteTextArea = styled.textarea`
     color: #9ca3af;
 `
 
-export const Button = styled.button`
+export const EnablePasswordDiv = styled.div`
     width: 100%;
-    padding: 1em 0;
-    font: 600 11pt "Josefin Sans";
-    text-transform: uppercase;
-    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `

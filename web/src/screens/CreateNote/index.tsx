@@ -1,33 +1,58 @@
+import { BaseSyntheticEvent, useState } from "react"
+import { Switch } from "@mui/material"
+
 import Header from "../../components/Header"
 import ColorButton from "../../components/ColorButton"
+import ImagesDialog from "../../components/ImagesDialog"
+import CreatePasswordDialog from "../../components/CreatePasswordDialog"
+import Button from "../../components/Button"
 
 import BackButton from "../../assets/back.svg"
 import ImageButton from "../../assets/image.svg"
 import ColorPickerImage from "../../assets/color-picker.svg"
 
 import {
-    Button,
     ColorInput,
     ColorPicker,
     ColorSelection,
     ColorSelectionLabel,
-    ColorsWrapper,
+    ColorsContainer,
     Form,
     NoteTextArea,
-    TitleInput
+    TitleInput,
+    EnablePasswordDiv
 } from "./styles"
 
 export default function CreateNote() {
+    const [openImageDialog, setOpenImageDialog] = useState(false)
+    const [openCreatePassword, setOpenCreatePassword] = useState(false)
+
+    const handleOpenImageDialog = () => {
+        setOpenImageDialog(true)
+    }
+
+    const handleOpenCreatePassword = (e: BaseSyntheticEvent) => {
+        // opens create password dialog if the password switch is enabled
+        if (e.target.checked) setOpenCreatePassword(true)
+    }
+
+    const handleFormSubmit = (e: BaseSyntheticEvent) => {
+        e.preventDefault()
+    }
+
     return (
         <>
             <Header
                 leftButton={{ image: BackButton, url: "/" }}
-                rightButton={{ image: ImageButton, url: "/" }}
+                rightButton={{
+                    image: ImageButton,
+                    action: handleOpenImageDialog
+                }}
             />
-            <Form>
+            <Form onSubmit={handleFormSubmit}>
                 <TitleInput name="title" placeholder="Title..." />
 
-                <ColorsWrapper>
+                <ColorsContainer>
                     <p>Color:</p>
 
                     <ColorSelection>
@@ -44,15 +69,29 @@ export default function CreateNote() {
                             id="color-input"
                         />
                     </ColorSelection>
-
-                </ColorsWrapper>
+                </ColorsContainer>
 
                 <NoteTextArea
                     name="note-text"
                     placeholder="Write your text here..."
                 />
-                
-                <Button style={{backgroundColor: '#131A3C'}}>Save changes</Button>
+
+                <EnablePasswordDiv>
+                    <p>Password:</p>
+                    <Switch onInput={handleOpenCreatePassword}></Switch>
+                </EnablePasswordDiv>
+
+                <Button background="#131A3C">Save changes</Button>
+
+                <ImagesDialog
+                    open={openImageDialog}
+                    setOpen={setOpenImageDialog}
+                ></ImagesDialog>
+
+                <CreatePasswordDialog
+                    open={openCreatePassword}
+                    setOpen={setOpenCreatePassword}
+                ></CreatePasswordDialog>
             </Form>
         </>
     )

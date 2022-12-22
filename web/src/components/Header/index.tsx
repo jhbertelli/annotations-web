@@ -2,12 +2,14 @@ import { HeaderButton, StyledHeader } from "./styles"
 
 interface Props {
     leftButton?: {
-        url: string
         image: string
+        url?: string
+        action?: VoidFunction
     }
     rightButton?: {
-        url: string
         image: string
+        url?: string
+        action?: VoidFunction
     }
 }
 
@@ -21,9 +23,13 @@ export default function Header(props: Props) {
             ) : (
                 ""
             )}
-            
+
             {props.rightButton ? (
-                <HeaderButton href={props.rightButton.url} style={{ right: 0 }}>
+                <HeaderButton
+                    href={props.rightButton.url}
+                    onClick={props.rightButton.action}
+                    style={{ right: 0 }}
+                >
                     <img src={props.rightButton.image} />
                 </HeaderButton>
             ) : (
