@@ -1,3 +1,13 @@
+/*
+
+Fonts used:
+
+IBM Plex Sans 500
+Josefin Sans 400, 500, 600
+Inter 400, 500, 600
+
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&family=Inter:wght@400;500;600&family=Josefin+Sans:wght@400;500;600&display=swap");
 
 * {
@@ -8,5 +18,5 @@
 }
 
 body {
-    background-color: #00020F;
+    background-color: #00020f;
 }

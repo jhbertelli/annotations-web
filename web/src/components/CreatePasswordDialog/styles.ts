@@ -1,30 +1,7 @@
-import { Dialog, DialogContent } from "@mui/material"
 import styled from "styled-components"
 
-export const StyledDialog = styled(Dialog)`
-    > div {
-        > div {
-            background-color: transparent !important;
-            width: 400px;
-        }
-    }
-`
-export const Content = styled(DialogContent)`
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    background-color: #0e1428;
-    border-radius: 20px;
-`
-
 export const ContentText = styled.p`
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 11pt;
+    font: 500 11pt "Inter";
     line-height: 15px;
     text-align: center;
 
@@ -41,3 +18,9 @@ export const CloseButton = styled.img`
 `
 
 export const Key = styled.img``
+
+export const ErrorMessage = styled.p`
+    font: 600 10pt "Inter";
+    color: #E53232;
+    margin-top: 4px;
+`

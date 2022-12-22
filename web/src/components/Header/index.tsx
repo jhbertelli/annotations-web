@@ -17,7 +17,11 @@ export default function Header(props: Props) {
     return (
         <StyledHeader>
             {props.leftButton ? (
-                <HeaderButton href={props.leftButton.url} style={{ left: 0 }}>
+                <HeaderButton
+                    href={props.leftButton.url}
+                    onClick={props.leftButton.action}
+                    style={{ left: 0 }}
+                >
                     <img src={props.leftButton.image} />
                 </HeaderButton>
             ) : (

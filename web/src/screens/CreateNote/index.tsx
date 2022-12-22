@@ -22,6 +22,7 @@ import {
     TitleInput,
     EnablePasswordDiv
 } from "./styles"
+import Dialog from "../../components/GenericDialog"
 
 export default function CreateNote() {
     const [openImageDialog, setOpenImageDialog] = useState(false)
@@ -49,8 +50,15 @@ export default function CreateNote() {
                     action: handleOpenImageDialog
                 }}
             />
-            <Form onSubmit={handleFormSubmit}>
-                <TitleInput name="title" placeholder="Title..." />
+            <Form
+                onSubmit={handleFormSubmit}
+                encType="multipart/form-data"
+                method="post"
+            >
+                <TitleInput
+                    name="title"
+                    placeholder="Insert this note's title here..."
+                />
 
                 <ColorsContainer>
                     <p>Color:</p>
@@ -77,7 +85,7 @@ export default function CreateNote() {
                 />
 
                 <EnablePasswordDiv>
-                    <p>Password:</p>
+                    <p>Enable password:</p>
                     <Switch onInput={handleOpenCreatePassword}></Switch>
                 </EnablePasswordDiv>
 
@@ -85,12 +93,12 @@ export default function CreateNote() {
 
                 <ImagesDialog
                     open={openImageDialog}
-                    setOpen={setOpenImageDialog}
+                    onClose={setOpenImageDialog}
                 ></ImagesDialog>
 
                 <CreatePasswordDialog
                     open={openCreatePassword}
-                    setOpen={setOpenCreatePassword}
+                    onClose={setOpenCreatePassword}
                 ></CreatePasswordDialog>
             </Form>
         </>

@@ -1,13 +1,14 @@
 import { StyledButton } from "./styles"
+import { ButtonHTMLAttributes } from "react"
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<any> {
     background: string
     children: string
 }
 
 export default function Button(props: Props) {
     return (
-        <StyledButton style={{ backgroundColor: props.background }}>
+        <StyledButton {...props} style={{ backgroundColor: props.background }}>
             {props.children}
         </StyledButton>
     )
