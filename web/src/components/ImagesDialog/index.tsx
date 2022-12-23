@@ -1,5 +1,3 @@
-import { DialogActions } from "@mui/material"
-
 import {
     StyledDialog,
     CloseButton,
@@ -21,7 +19,7 @@ export default function ImagesDialog(props: DialogProps) {
 
     function handleCloseImagesDialog() {
         // closes images dialog
-        props.onClose(false)
+        props.setOpen(false)
     }
 
     return (

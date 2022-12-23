@@ -1,14 +1,19 @@
 import { ReactNode } from "react"
-import { CloseButton, Content, StyledDialog } from "./styles"
+import { DialogProps as MaterialUIDialogProps } from "@mui/material"
+
 import CloseButtonImage from "../../assets/close.svg"
 
-export interface DialogProps {
+import { CloseButton, Content, StyledDialog } from "./styles"
+
+export interface DialogProps extends MaterialUIDialogProps {
     open: boolean
-    onClose: Function
+    setOpen: Function
 }
 
 interface Props extends DialogProps {
     children: ReactNode
+    // for when the user clicks on the "X" button or outside the dialog
+    handleCloseDialog: VoidFunction
 }
 
 export default function GenericDialog(props: Props) {
@@ -17,20 +22,15 @@ export default function GenericDialog(props: Props) {
     // insert note password;
     // delete note
 
-    const handleCloseDialog = () => {
-        // closes dialog
-        props.onClose(false)
-    }
-
     return (
         <StyledDialog
             open={props.open}
-            onClose={handleCloseDialog}
+            onClose={props.handleCloseDialog}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
             <Content>
-                <CloseButton onClick={handleCloseDialog} src={CloseButtonImage}></CloseButton>
+                <CloseButton onClick={props.handleCloseDialog} src={CloseButtonImage}></CloseButton>
                 {props.children}
             </Content>
         </StyledDialog>

@@ -7,7 +7,13 @@ import GenericDialog, { DialogProps } from "../GenericDialog"
 import KeyImage from "../../assets/key.svg"
 import { ReactNode, useState } from "react"
 
-export default function CreatePasswordDialog(props: DialogProps) {
+interface Props extends DialogProps {
+    setSwitchStatus: Function
+}
+
+export default function CreatePasswordDialog(props: Props) {
+    const [error, setError] = useState<ReactNode>()
+    
     const handlePasswordSubmit = () => {
         // checks if both passwords are not null and are the same
 
@@ -29,23 +35,34 @@ export default function CreatePasswordDialog(props: DialogProps) {
         }
 
         if (passwordValue === confirmPasswordValue) {
-            // closes the dialog
-            props.onClose(false)
+            // closes the dialog, keeping the switch checked
+            props.setOpen(false)
             return
         }
 
         setError(<ErrorMessage>The passwords do not match.</ErrorMessage>)
     }
 
-    const [error, setError] = useState<ReactNode>()
-
     const resetError = () => {
         // resets error when writing in inputs
         setError("")
     }
+    
+    const handleCloseDialog = () => {
+        // closes dialog and sets switch to unchecked
+        props.setOpen(false)
+        props.setSwitchStatus(false)
+        // clears the error message after the dialog fades out
+        setTimeout(() => {setError("")}, 200)
+    }
 
     return (
-        <GenericDialog open={props.open} onClose={props.onClose}>
+        <GenericDialog
+            handleCloseDialog={handleCloseDialog}
+            open={props.open}
+            setOpen={props.setOpen}
+            keepMounted
+        >
             <Key src={KeyImage}></Key>
 
             <ContentText>

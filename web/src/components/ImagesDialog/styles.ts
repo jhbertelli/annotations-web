@@ -27,10 +27,12 @@ export const Content = styled(DialogContent)`
 `
 
 export const CloseButton = styled.img`
+    cursor: pointer;
     position: absolute;
     right: 0;
     top: 0;
-    margin: 1em;
+    margin: 0.75em;
+    padding: 0.25em;
 `
 
 export const NoAttachmentsImage = styled.img`

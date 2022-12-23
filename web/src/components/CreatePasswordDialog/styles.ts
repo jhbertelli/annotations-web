@@ -10,13 +10,6 @@ export const ContentText = styled.p`
     margin: 1em 0;
 `
 
-export const CloseButton = styled.img`
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 1em;
-`
-
 export const Key = styled.img``
 
 export const ErrorMessage = styled.p`

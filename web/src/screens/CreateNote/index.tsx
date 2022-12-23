@@ -22,19 +22,21 @@ import {
     TitleInput,
     EnablePasswordDiv
 } from "./styles"
-import Dialog from "../../components/GenericDialog"
 
 export default function CreateNote() {
-    const [openImageDialog, setOpenImageDialog] = useState(false)
+    const [openImagesDialog, setOpenImagesDialog] = useState(false)
     const [openCreatePassword, setOpenCreatePassword] = useState(false)
+    const [switchActive, setSwitchActive] = useState(false)
 
-    const handleOpenImageDialog = () => {
-        setOpenImageDialog(true)
+    const handleOpenImagesDialog = () => {
+        // opens images dialog
+        setOpenImagesDialog(true)
     }
 
     const handleOpenCreatePassword = (e: BaseSyntheticEvent) => {
         // opens create password dialog if the password switch is enabled
-        if (e.target.checked) setOpenCreatePassword(true)
+        setSwitchActive(!switchActive)
+        if (!e.target.checked) setOpenCreatePassword(true)
     }
 
     const handleFormSubmit = (e: BaseSyntheticEvent) => {
@@ -47,7 +49,7 @@ export default function CreateNote() {
                 leftButton={{ image: BackButton, url: "/" }}
                 rightButton={{
                     image: ImageButton,
-                    action: handleOpenImageDialog
+                    action: handleOpenImagesDialog
                 }}
             />
             <Form
@@ -86,19 +88,23 @@ export default function CreateNote() {
 
                 <EnablePasswordDiv>
                     <p>Enable password:</p>
-                    <Switch onInput={handleOpenCreatePassword}></Switch>
+                    <Switch
+                        onInput={handleOpenCreatePassword}
+                        checked={switchActive}
+                    ></Switch>
                 </EnablePasswordDiv>
 
-                <Button background="#131A3C">Save changes</Button>
+                <Button background="#131A3C">Create note</Button>
 
                 <ImagesDialog
-                    open={openImageDialog}
-                    onClose={setOpenImageDialog}
+                    open={openImagesDialog}
+                    setOpen={setOpenImagesDialog}
                 ></ImagesDialog>
 
                 <CreatePasswordDialog
                     open={openCreatePassword}
-                    onClose={setOpenCreatePassword}
+                    setOpen={setOpenCreatePassword}
+                    setSwitchStatus={setSwitchActive}
                 ></CreatePasswordDialog>
             </Form>
         </>

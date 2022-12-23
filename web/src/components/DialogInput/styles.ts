@@ -30,6 +30,6 @@ export const TogglePassword = styled.img`
     cursor: pointer;
     position: absolute;
     right: 0;
-    height: 90%;
+    height: 85%;
     margin-right: 0.25em;
 `
