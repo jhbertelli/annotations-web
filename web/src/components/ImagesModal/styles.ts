@@ -1,21 +1,18 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material"
+import { DialogContent, DialogTitle } from "@mui/material"
 import styled from "styled-components"
 
-export const StyledDialog = styled(Dialog)`
-    > div {
-        > div {
-            width: 600px;
-            color: white;
-            background-color: #0e1428;
-            border-radius: 20px;
-        }
-    }
+export const ModalContainer = styled.div`
+    width: 600px;
+    color: white;
+    background-color: #0e1428;
+    border-radius: 20px;
 `
 
 export const Title = styled(DialogTitle)`
     font: 500 13pt "Josefin Sans" !important;
     line-height: 13px;
     color: #f3f4f6;
+    position: relative;
 `
 
 export const Content = styled(DialogContent)`
@@ -52,7 +49,7 @@ export const NoAttachmentsText = styled.p`
 export const AddAttachmentButton = styled.label`
     width: 100%;
     padding: 1em 0;
-    
+
     font: 500 11pt "Josefin Sans";
     line-height: 12px;
     text-transform: uppercase;

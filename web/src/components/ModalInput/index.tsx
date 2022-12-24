@@ -11,7 +11,7 @@ interface Props extends InputHTMLAttributes<any> {
     togglePassword?: boolean
 }
 
-export default function DialogInput(props: Props) {
+export default function ModalInput(props: Props) {
     const handleTogglePassword = (e: BaseSyntheticEvent) => {
         // toggles between showing and hiding password
         // activated when clicking the toggle password button

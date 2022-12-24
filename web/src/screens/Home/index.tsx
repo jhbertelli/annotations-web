@@ -9,7 +9,7 @@ export default function Home() {
         <>
             <Header rightButton={{ image: Add, url: "/create/" }} />
             <NoNotes>
-                <AddNoteImg src={CreateNoteImage}></AddNoteImg>
+                <AddNoteImg src={CreateNoteImage} />
                 <NoNotesText>You haven’t created any notes yet</NoNotesText>
             </NoNotes>
         </>

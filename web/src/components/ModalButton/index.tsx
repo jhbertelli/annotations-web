@@ -6,7 +6,7 @@ interface Props extends ButtonHTMLAttributes<any> {
     style?: CSSProperties
 }
 
-export default function DialogButton(props: Props) {
+export default function ModalButton(props: Props) {
     return (
         <Button {...props} style={props.style}>
             {props.children}

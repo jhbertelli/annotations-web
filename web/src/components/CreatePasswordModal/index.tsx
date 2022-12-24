@@ -1,28 +1,31 @@
 import { ContentText, ErrorMessage, Key } from "./styles"
 
-import DialogInput from "../DialogInput"
-import DialogButton from "../DialogButton"
-import GenericDialog, { DialogProps } from "../GenericDialog"
+import ModalInput from "../ModalInput"
+import ModalButton from "../ModalButton"
+import GenericModal, { ModalProps } from "../GenericModal"
 
 import KeyImage from "../../assets/key.svg"
 import { ReactNode, useState } from "react"
 
-interface Props extends DialogProps {
+interface Props extends ModalProps {
     setSwitchStatus: Function
 }
 
-export default function CreatePasswordDialog(props: Props) {
+export default function CreatePasswordModal(props: Props) {
     const [error, setError] = useState<ReactNode>()
-    
+
+    const passwordInput = document.getElementById(
+        "password"
+    ) as HTMLInputElement
+    const confirmPasswordInput = document.getElementById(
+        "confirm-password"
+    ) as HTMLInputElement
+
     const handlePasswordSubmit = () => {
         // checks if both passwords are not null and are the same
 
-        const passwordValue = (document.getElementById(
-            "password"
-        ) as HTMLInputElement)!.value
-        const confirmPasswordValue = (document.getElementById(
-            "confirm-password"
-        ) as HTMLInputElement)!.value
+        const passwordValue = passwordInput!.value
+        const confirmPasswordValue = confirmPasswordInput!.value
 
         if (passwordValue === "") {
             setError(<ErrorMessage>Please enter a password.</ErrorMessage>)
@@ -35,7 +38,7 @@ export default function CreatePasswordDialog(props: Props) {
         }
 
         if (passwordValue === confirmPasswordValue) {
-            // closes the dialog, keeping the switch checked
+            // closes the modal, keeping the switch checked
             props.setOpen(false)
             return
         }
@@ -47,30 +50,34 @@ export default function CreatePasswordDialog(props: Props) {
         // resets error when writing in inputs
         setError("")
     }
-    
-    const handleCloseDialog = () => {
-        // closes dialog and sets switch to unchecked
+
+    const handleCloseModal = () => {
+        // closes modal and sets switch to unchecked
         props.setOpen(false)
         props.setSwitchStatus(false)
-        // clears the error message after the dialog fades out
+
+        // clears modal inputs
+        passwordInput.value = ""
+        confirmPasswordInput.value = ""
+
+        // clears the error message after the modal fades out
         setTimeout(() => {setError("")}, 200)
     }
 
     return (
-        <GenericDialog
-            handleCloseDialog={handleCloseDialog}
+        <GenericModal
+            handleCloseModal={handleCloseModal}
             open={props.open}
             setOpen={props.setOpen}
-            keepMounted
         >
-            <Key src={KeyImage}></Key>
+            <Key src={KeyImage} />
 
             <ContentText>
                 By enabling a password, you’ll only be able to view, update and
                 delete your note entering the provided password below.
             </ContentText>
 
-            <DialogInput
+            <ModalInput
                 name="password"
                 type="password"
                 placeholder="Password..."
@@ -78,7 +85,7 @@ export default function CreatePasswordDialog(props: Props) {
                 togglePassword
                 onInput={resetError}
             />
-            <DialogInput
+            <ModalInput
                 name="confirm-password"
                 id="confirm-password"
                 type="password"
@@ -89,12 +96,12 @@ export default function CreatePasswordDialog(props: Props) {
 
             {error}
 
-            <DialogButton
+            <ModalButton
                 style={{ backgroundColor: "#1C243E", marginTop: "12px" }}
                 onClick={handlePasswordSubmit}
             >
                 Submit
-            </DialogButton>
-        </GenericDialog>
+            </ModalButton>
+        </GenericModal>
     )
 }

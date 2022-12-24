@@ -9,6 +9,6 @@ export default function ColorButton(props: Props) {
         <Button
             className="color-button"
             style={{ backgroundColor: props.color }}
-        ></Button>
+        />
     )
 }

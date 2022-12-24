@@ -1,16 +1,16 @@
-import { Dialog, DialogContent } from "@mui/material"
+import { Modal, DialogContent } from "@mui/material"
 import styled from "styled-components"
 
-export const StyledDialog = styled(Dialog)`
-    > div {
-        > div {
-            background-color: transparent !important;
-            width: 400px;
-        }
-    }
+export const StyledModal = styled(Modal)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
+
 export const Content = styled(DialogContent)`
     position: relative;
+
+    max-width: 400px;
 
     display: flex;
     flex-direction: column;
