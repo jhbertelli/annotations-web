@@ -4,7 +4,7 @@ import { BaseSyntheticEvent, InputHTMLAttributes } from "react"
 import ShowPassword from "../../assets/show-password.svg"
 import HidePassword from "../../assets/hide-password.svg"
 
-interface Props extends InputHTMLAttributes<any> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
     name: string
     id: string
     placeholder: string

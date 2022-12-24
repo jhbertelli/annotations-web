@@ -1,7 +1,7 @@
 import { Button } from "./styles"
 import { ButtonHTMLAttributes, CSSProperties } from "react"
 
-interface Props extends ButtonHTMLAttributes<any> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: string
     style?: CSSProperties
 }

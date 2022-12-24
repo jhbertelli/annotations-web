@@ -1,7 +1,7 @@
 import { StyledButton } from "./styles"
 import { ButtonHTMLAttributes } from "react"
 
-interface Props extends ButtonHTMLAttributes<any> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     background: string
     children: string
 }

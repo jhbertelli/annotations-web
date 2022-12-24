@@ -7,6 +7,7 @@ export const StyledHeader = styled.header`
 
     position: fixed;
     top: 0;
+    z-index: 999;
 
     display: flex;
     align-items: center;

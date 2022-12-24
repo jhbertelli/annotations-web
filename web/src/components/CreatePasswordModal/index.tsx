@@ -1,11 +1,12 @@
-import { ContentText, ErrorMessage, Key } from "./styles"
+import { ReactNode, useState } from "react"
 
 import ModalInput from "../ModalInput"
 import ModalButton from "../ModalButton"
 import GenericModal, { ModalProps } from "../GenericModal"
 
+import { ContentText, ErrorMessage, Key } from "./styles"
+
 import KeyImage from "../../assets/key.svg"
-import { ReactNode, useState } from "react"
 
 interface Props extends ModalProps {
     setSwitchStatus: Function

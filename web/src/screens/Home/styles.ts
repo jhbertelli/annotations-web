@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import CreateNoteImage from "../../assets/plus-list.svg"
 
 export const NoNotes = styled.div`
     height: 100vh;
