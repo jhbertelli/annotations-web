@@ -85,6 +85,7 @@ export default function CreatePasswordModal(props: Props) {
                 id="password"
                 togglePassword
                 onInput={resetError}
+                maxLength={20}
             />
             <ModalInput
                 name="confirm-password"
@@ -93,6 +94,7 @@ export default function CreatePasswordModal(props: Props) {
                 placeholder="Confirm password..."
                 togglePassword
                 onInput={resetError}
+                maxLength={20}
             />
 
             {error}

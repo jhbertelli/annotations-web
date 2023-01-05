@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Switch } from "@mui/material"
 
 export const Form = styled.form`
     padding-top: 4em;
@@ -38,8 +39,8 @@ export const NoteTextArea = styled.textarea`
     margin: 1.25em 0 0.75em 0;
     box-sizing: border-box;
 
-    opacity: 0.4;
-    background-color: black;
+    opacity: 0.8;
+    background-color: #000108;
 
     border-radius: 10px;
 
@@ -52,4 +53,16 @@ export const EnablePasswordDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+`
+
+export const StyledSwitch = styled(Switch)`
+    .MuiSwitch-track {
+        background-color: #123456;
+    }
+`
+
+export const TextLength = styled.p`
+    width: 100%;
+    text-align: right;
+    margin: 0.25em 0;
 `
