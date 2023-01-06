@@ -23,3 +23,22 @@ cd web
 yarn
 yarn dev
 ```
+
+To run the server, you need to have MongoDB installed on your machine.
+If you have it, run these commands on your terminal:
+
+```shell
+cd server
+
+npm install
+npm run dev
+```
+
+or
+
+```shell
+cd server
+
+yarn
+yarn dev
+```
