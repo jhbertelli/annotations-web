@@ -4,6 +4,7 @@ import axios from "axios"
 
 import Header from "../../components/Header"
 import Note from "../../components/Note"
+import PrivateNote from "../../components/PrivateNote"
 
 import Add from "../../assets/add.svg"
 import CreateNoteImage from "../../assets/plus-list.svg"
@@ -41,14 +42,18 @@ export default function Home() {
                     <Masonry columns={4} spacing={2}>
                         {notes.map((note: Note) => {
                             // for each note in api
-                            
-                            if (note.private) return // wip
+
+                            if (note.private)
+                                return (
+                                    <PrivateNote
+                                        key={note._id}
+                                        title={note.noteTitle}
+                                    />
+                                )
 
                             return (
                                 <Note
-                                    onClick={() => {
-                                        window.location.href = `/note/${note._id}/`
-                                    }}
+                                    id={note._id}
                                     key={note._id}
                                     title={note.noteTitle}
                                     text={note.noteText}

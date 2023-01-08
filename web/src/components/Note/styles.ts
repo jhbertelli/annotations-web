@@ -4,10 +4,9 @@ import { Paper } from "@mui/material"
 export const NoteContainer = styled(Paper)`
     border-radius: 10px;
     overflow: hidden;
-    cursor: pointer;
 `
 
-export const Title = styled.pre`
+export const Title = styled.p`
     padding: 0.75em;
     text-align: center;
     font: 600 13pt "Inter";

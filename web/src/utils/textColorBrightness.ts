@@ -7,7 +7,7 @@ export default function textColorBrightness(hex: string) {
         b = parseInt(hex.slice(5, 7), 16)
 
     const brightness = (r * 299 + g * 587 + b * 114) / 1000
-    if (brightness >= 240) return "#000"
+    if (brightness >= 200) return "#000"
 
     return "#FFF"
 }
