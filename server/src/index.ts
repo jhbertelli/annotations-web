@@ -73,13 +73,15 @@ app.get("/notes/", async () => {
 
         let note: any = {
             _id: databaseNote._id,
-            noteTitle: databaseNote.noteTitle
+            noteTitle: databaseNote.noteTitle,
+            private: false
         }
 
         // checks if the note has password
         // notes with password will only have their ID and title visible
         // prior to password insertion
         if (databaseNote.notePassword) {
+            note.private = true
             notes.push(note)
             continue
         }
@@ -95,11 +97,13 @@ app.get("/notes/", async () => {
 
 app.get("/note/:id", async (request, response) => {
     const params = request.params as noteHttpParams
-    
+
     try {
         // tries to get note from mongodb
-        const note = await notesCollection.findOne({ _id: new ObjectId(params.id) })
-        
+        const note = await notesCollection.findOne({
+            _id: new ObjectId(params.id)
+        })
+
         if (note?.password) {
             // wip
         }

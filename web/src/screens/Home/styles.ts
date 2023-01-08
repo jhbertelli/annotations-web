@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const NoNotes = styled.div`
+export const NoNotes = styled.main`
     height: 100vh;
     width: 100%;
 
@@ -21,4 +21,8 @@ export const NoNotesText = styled.p`
 
 export const AddNoteImg = styled.img`
     width: 240px;
+`
+
+export const NotesContainer = styled.main`
+    padding: 5em 2em 0 2em;
 `
