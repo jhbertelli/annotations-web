@@ -95,7 +95,7 @@ app.get("/notes/", async () => {
     return notes
 })
 
-app.get("/note/:id", async (request, response) => {
+app.get("/note/:id/", async (request, response) => {
     const params = request.params as noteHttpParams
 
     try {

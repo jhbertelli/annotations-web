@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Masonry } from "@mui/lab"
 import axios from "axios"
 
@@ -11,7 +11,9 @@ import CreateNoteImage from "../../assets/plus-list.svg"
 
 import { AddNoteImg, NoNotes, NoNotesText, NotesContainer } from "./styles"
 
-interface Note {
+import { NoteAttributes } from "../ViewNote"
+
+interface AllNotes extends NoteAttributes {
     _id: string
     noteTitle: string
     noteColor: string
@@ -20,14 +22,18 @@ interface Note {
 }
 
 export default function Home() {
-    const [notes, setNotes] = useState<Note[]>([])
+    const [notes, setNotes] = useState<AllNotes[]>([])
 
-    useState(async () => {
-        // gets all notes from api
-        const notes = await axios("http://localhost:7777/notes/")
+    useEffect(() => {
+        const getNotes = async () => {
+            // gets all notes from api
+            const notes = await axios("http://localhost:7777/notes/")
 
-        setNotes(notes.data)
-    })
+            setNotes(notes.data)
+        }
+
+        getNotes()
+    }, [])
 
     return (
         <>
@@ -40,7 +46,7 @@ export default function Home() {
             ) : (
                 <NotesContainer>
                     <Masonry columns={4} spacing={2}>
-                        {notes.map((note: Note) => {
+                        {notes.map((note: AllNotes) => {
                             // for each note in api
 
                             if (note.private)

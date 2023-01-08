@@ -1,6 +1,7 @@
+import { HTMLAttributes } from "react"
 import { HeaderButton, StyledHeader } from "./styles"
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     leftButton?: {
         image: string
         url?: string
@@ -15,7 +16,7 @@ interface Props {
 
 export default function Header(props: Props) {
     return (
-        <StyledHeader>
+        <StyledHeader {...props}>
             {props.leftButton ? (
                 <HeaderButton
                     href={props.leftButton.url}

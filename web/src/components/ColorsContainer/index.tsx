@@ -72,7 +72,7 @@ export default function ColorsContainer() {
             <ColorSelection>
                 <ColorButton color="#E924B2" onClick={handleSelectedColor} />
                 <ColorButton color="#1446F9" onClick={handleSelectedColor} />
-                <ColorButton color="#1DF64D" onClick={handleSelectedColor} />
+                <ColorButton color="#1A7924" onClick={handleSelectedColor} />
                 {/* opens hidden color input */}
                 <ColorSelectionLabel
                     onClick={handleColorPickerClicked}
