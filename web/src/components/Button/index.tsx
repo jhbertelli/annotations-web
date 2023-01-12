@@ -8,7 +8,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button(props: Props) {
     return (
-        <StyledButton {...props} style={{ backgroundColor: props.background }}>
+        <StyledButton
+            {...props}
+            style={{ backgroundColor: props.background, ...props.style }}
+        >
             {props.children}
         </StyledButton>
     )

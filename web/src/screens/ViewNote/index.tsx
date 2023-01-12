@@ -33,9 +33,6 @@ export default function ViewNote() {
         getNote()
     }, [])
 
-    const body = document.querySelector("body") as HTMLBodyElement
-    const root = document.querySelector("#root") as HTMLDivElement
-
     return (
         <>
             <Header

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import CreateNote from "./screens/CreateNote"
+import EditNote from "./screens/EditNote"
 import Home from "./screens/Home"
 import ViewNote from "./screens/ViewNote"
 
@@ -12,6 +13,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/create/" element={<CreateNote />} />
             <Route path="/note/:id/" element={<ViewNote />} />
+            <Route path="/note/:id/edit/" element={<EditNote />} />
         </Routes>
     )
 }

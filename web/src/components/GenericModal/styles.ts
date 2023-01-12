@@ -5,6 +5,9 @@ export const StyledModal = styled(Modal)`
     display: flex;
     justify-content: center;
     align-items: center;
+    > div {
+        padding: 2em 1.5em 1.25em 1.5em;
+    }
 `
 
 export const Content = styled(DialogContent)`
