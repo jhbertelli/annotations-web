@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
+import axios from "axios"
 
 import Header from "../../components/Header"
 
+import hexToRGB from "../../utils/hexToRGB"
+
 import BackButton from "../../assets/back.svg"
 import EditButton from "../../assets/edit.svg"
-import axios from "axios"
 
-import hexToRGB from "../../utils/hexToRGB"
 import { NoteContainer, Overlay, Title, Text } from "./styles"
 
 export interface NoteAttributes {

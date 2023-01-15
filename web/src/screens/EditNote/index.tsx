@@ -26,6 +26,7 @@ export default function CreateNote() {
     const [textLengthNumber, setTextLengthNumber] = useState(4000)
     const [title, setTitle] = useState("")
     const [text, setText] = useState("")
+    const [color, setColor] = useState("")
     
     useEffect(() => {
         const getNote = async () => {
@@ -33,6 +34,7 @@ export default function CreateNote() {
 
             setTitle(note.data.noteTitle)
             setText(note.data.noteText)
+            setColor(note.data.noteColor)
         }
         
         getNote()
@@ -92,7 +94,7 @@ export default function CreateNote() {
 
         try {
             const request = await axios.post(
-                "http://localhost:7777/edit_note/",
+                `http://localhost:7777/note/${noteId}/edit/`,
                 form
             )
 
@@ -130,7 +132,7 @@ export default function CreateNote() {
                     onInput={handleTitleChange}
                 />
 
-                <ColorsContainer />
+                <ColorsContainer defaultColor={color} />
 
                 <NoteTextArea
                     id="note-text"

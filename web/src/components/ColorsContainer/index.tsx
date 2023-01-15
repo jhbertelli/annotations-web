@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useRef, useState } from "react"
+import { BaseSyntheticEvent, RefObject, useEffect, useRef, useState } from "react"
 
 import ColorButton from "../ColorButton"
 
@@ -13,8 +13,38 @@ import {
     TempColorInput
 } from "./styles"
 
-export default function ColorsContainer() {
+interface Props {
+    defaultColor?: string
+}
+
+export default function ColorsContainer(props: Props) {
     const [color, setColor] = useState("")
+    const colorSelection = useRef() as RefObject<HTMLDivElement>
+
+    useEffect(() => {
+        if (props.defaultColor) {
+            // loads color in edit note page
+            setColor(props.defaultColor)
+            const colorsSelectionCurrent = colorSelection.current as HTMLDivElement
+
+            for (let i = 0; i < colorsSelectionCurrent.childElementCount - 3; i++) {
+                const colorDiv = colorsSelectionCurrent.children[i] as HTMLDivElement
+                
+                // checks if the note's color is in any of the pre-made colors
+                if (colorDiv.getAttribute("color") === props.defaultColor) {
+                    colorDiv.style.outline = "3px solid #3f57c4"
+                    return
+                }
+            }
+            
+            // in case it's a custom color
+            const colorSelectionLabel =
+                colorsSelectionCurrent.children[3] as HTMLDivElement
+            
+            colorSelectionLabel.style.outline = "3px solid #3f57c4"
+            colorSelectionLabel.style.backgroundColor = props.defaultColor
+        }
+    }, [props.defaultColor])
 
     function handleOptionStyleBorder(element: HTMLElement) {
         // adds a border to the selected option to make visible
@@ -69,7 +99,7 @@ export default function ColorsContainer() {
         <Colors>
             <p>Color:</p>
 
-            <ColorSelection>
+            <ColorSelection id="colors" ref={colorSelection}>
                 <ColorButton color="#E924B2" onClick={handleSelectedColor} />
                 <ColorButton color="#1446F9" onClick={handleSelectedColor} />
                 <ColorButton color="#1A7924" onClick={handleSelectedColor} />
