@@ -45,6 +45,12 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
             const note = await notesCollection.findOne({
                 _id: new ObjectId(params.id)
             })
+            
+            if (note === null) {
+                // if note doesn't exist
+                response.code(404)
+                return
+            }
     
             if (note?.password) {
                 // wip
@@ -52,9 +58,9 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
     
             return note
         } catch (err) {
-            // if note doesn't exist
-            response.code(404)
-            return
+            // if url contains a bad ID
+            response.code(400)
+            return err
         }
     })
 }

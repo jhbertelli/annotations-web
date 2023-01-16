@@ -85,7 +85,6 @@ export default function CreateNote() {
         if (noteTitle === "" || noteColor === "" || noteText === "") return
 
         const form = {
-            noteId,
             noteTitle,
             noteColor,
             noteText,
@@ -93,13 +92,13 @@ export default function CreateNote() {
         }
 
         try {
-            const request = await axios.post(
+            const request = await axios.put(
                 `http://localhost:7777/note/${noteId}/edit/`,
                 form
             )
 
             // redirects if note is edited successfully
-            if (request.status === 201) window.location.href = "/"
+            if (request.status === 200) window.location.href = "/"
         } catch (err) {
             console.error(err)
         }

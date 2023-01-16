@@ -4,9 +4,9 @@ import { notesCollection } from "../database"
 import { NoteHttpParams } from "../types"
 
 export const deleteNoteRoutes = async (app: FastifyInstance) => {
-    app.post("/note/:id/delete/", async (request, response) => {
+    app.delete("/note/:id/delete/", async (request, response) => {
         const params = request.params as NoteHttpParams
-    
+        
         try {
             // tries to get note from mongodb
             const note = await notesCollection.findOne({

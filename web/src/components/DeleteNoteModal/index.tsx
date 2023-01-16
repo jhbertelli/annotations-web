@@ -13,12 +13,8 @@ export default function DeleteNoteModal(props: Props) {
     }
 
     const handleDeleteNote = async () => {
-        // const form = {
-        //     id: props.noteId
-        // }
-
         try {
-            const request = await axios.post(
+            const request = await axios.delete(
                 `http://localhost:7777/note/${props.noteId}/delete/`
             )
 
