@@ -1,10 +1,10 @@
 import axios from "axios"
 
+import { FastifyInstance } from "fastify"
+import { NoteHttpParams } from "../types"
+
 import { ObjectId } from "mongodb"
 import { notesCollection } from "../database"
-
-import { FastifyInstance } from "fastify"
-import { Note, NoteHttpParams } from "../types"
 
 export const getNoteRoutes = async (app: FastifyInstance) => {
     app.get("/notes/", async () => {
@@ -43,6 +43,7 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
     app.get("/note/:id/", async (request, response) => {
         const params = request.params as NoteHttpParams
         const noteId = params.id
+
         try {
             // tries to get note from database
             const dbNote = await notesCollection.findOne({
@@ -67,12 +68,11 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
                     await axios("http://localhost:7777/allowed_private_notes/")
                 ).data as Array<string>
 
-                // if the user has access to the private note
-                if (allowedPrivateNotes.includes(noteId)) return note
-
-                // if else, returns unauthorized
-                response.code(401)
-                return
+                // if the user doesn't have access to the private note, returns unauthorized
+                if (!allowedPrivateNotes.includes(noteId)) {
+                    response.code(401)
+                    return
+                }
             }
 
             return note

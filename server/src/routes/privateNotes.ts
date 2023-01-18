@@ -4,7 +4,7 @@ import { NoteHttpParams } from "../types"
 import { ObjectId } from "mongodb"
 import { notesCollection } from "../database"
 
-export const allowedPrivateNotesRoutes = async (app: FastifyInstance) => {
+export const privateNotesRoutes = async (app: FastifyInstance) => {
     let allowedPrivateNotes: Array<string> = []
 
     app.get("/allowed_private_notes/", async () => {
@@ -40,7 +40,7 @@ export const allowedPrivateNotesRoutes = async (app: FastifyInstance) => {
                 response.code(404)
                 return
             }
-            
+
             // in case it's a public note
             if (!dbNote.notePassword) {
                 response.code(400)
@@ -61,9 +61,9 @@ export const allowedPrivateNotesRoutes = async (app: FastifyInstance) => {
         // adds the allowed note into array
         allowedPrivateNotes.push(noteId)
 
-        // permission to access it expires after 10 minutes
+        // permission to access it expires after 20 minutes
         setTimeout(() => {
             allowedPrivateNotes.splice(allowedPrivateNotes.indexOf(noteId), 1)
-        }, 600000) // 10 min
+        }, 1200000) // 20 min
     })
 }

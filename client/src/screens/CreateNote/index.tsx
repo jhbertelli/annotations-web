@@ -61,12 +61,13 @@ export default function CreateNote() {
 
         if (noteTitle === "" || noteColor === "" || noteText === "") return
 
-        const form = {
+        let form = {
             noteTitle,
             noteColor,
-            noteText,
-            notePassword
-        }
+            noteText
+        } as any
+
+        if (notePassword.length > 0) form.notePassword = notePassword
 
         try {
             const request = await axios.post(

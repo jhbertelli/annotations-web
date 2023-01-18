@@ -1,5 +1,4 @@
 import { FastifyInstance } from "fastify"
-
 import { Note } from "../types"
 
 import { notesCollection } from "../database"

@@ -1,9 +1,10 @@
+import axios from "axios"
+
 import { FastifyInstance } from "fastify"
+import { Note, NoteHttpParams } from "../types"
 
 import { ObjectId } from "mongodb"
 import { notesCollection } from "../database"
-
-import { Note, NoteHttpParams } from "../types"
 
 import validateColor from "../utils/validateColor"
 import validateNoteBody from "../utils/validateNoteBody"
@@ -12,7 +13,10 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
     app.put("/note/:id/edit/", async (request, response) => {
         const formData = request.body as Note
         const params = request.params as NoteHttpParams
+        const noteId = params.id
 
+        // returns bad user request, in case the validation fails
+        // or if user inserts an invalid color code
         if (!validateNoteBody(formData) || !validateColor(formData.noteColor)) {
             response.code(400)
             return
@@ -21,7 +25,7 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
         try {
             // tries to get note from database
             const note = await notesCollection.findOne({
-                _id: new ObjectId(params.id)
+                _id: new ObjectId(noteId)
             })
 
             if (note === null) {
@@ -31,12 +35,20 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
             }
 
             if (note.notePassword) {
-                // wip
+                const allowedPrivateNotes = (
+                    await axios("http://localhost:7777/allowed_private_notes/")
+                ).data as Array<string>
+
+                // if the user doesn't have access to the private note, returns unauthorized
+                if (!allowedPrivateNotes.includes(noteId)) {
+                    response.code(401)
+                    return
+                }
             }
 
             notesCollection.updateOne(
                 // old note
-                { _id: new ObjectId(params.id) },
+                { _id: new ObjectId(noteId) },
                 // new note
                 { $set: formData }
             )
