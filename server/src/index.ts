@@ -6,6 +6,7 @@ import { getNoteRoutes } from "./routes/getNotes"
 import { createNoteRoutes } from "./routes/createNote"
 import { deleteNoteRoutes } from "./routes/deleteNote"
 import { editNoteRoutes } from "./routes/editNote"
+import { allowedPrivateNotesRoutes } from "./routes/privateNotes"
 
 export const ajv = new Ajv({})
 
@@ -16,6 +17,7 @@ app.register(getNoteRoutes)
 app.register(createNoteRoutes)
 app.register(deleteNoteRoutes)
 app.register(editNoteRoutes)
+app.register(allowedPrivateNotesRoutes)
 
 async function start() {
     try {

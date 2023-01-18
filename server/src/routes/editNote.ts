@@ -19,7 +19,7 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
         }
 
         try {
-            // tries to get note from mongodb
+            // tries to get note from database
             const note = await notesCollection.findOne({
                 _id: new ObjectId(params.id)
             })
@@ -30,17 +30,17 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
                 return
             }
 
-            if (note?.password) {
+            if (note.notePassword) {
                 // wip
             }
 
             notesCollection.updateOne(
-                {
-                    _id: new ObjectId(params.id)
-                },
+                // old note
+                { _id: new ObjectId(params.id) },
+                // new note
                 { $set: formData }
             )
-            
+
             response.code(200)
             return
         } catch (err) {

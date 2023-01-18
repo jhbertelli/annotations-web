@@ -6,6 +6,7 @@
   "dependencies": {
     "@fastify/cors": "^8.2.0",
     "ajv": "^8.11.2",
+    "axios": "^1.2.3",
     "fastify": "^4.10.2",
     "mongodb": "^4.13.0"
   },

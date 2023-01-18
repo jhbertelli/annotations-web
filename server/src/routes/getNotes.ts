@@ -1,61 +1,80 @@
-import { FastifyInstance } from "fastify"
+import axios from "axios"
+
 import { ObjectId } from "mongodb"
 import { notesCollection } from "../database"
-import { NoteHttpParams } from "../types"
+
+import { FastifyInstance } from "fastify"
+import { Note, NoteHttpParams } from "../types"
 
 export const getNoteRoutes = async (app: FastifyInstance) => {
     app.get("/notes/", async () => {
         // gets all notes from mongodb
-        const databaseNotes = await notesCollection.find().toArray()
+        const dbNotes = await notesCollection.find().toArray()
         let notes: Array<object> = []
-    
-        for (let i = 0; i < databaseNotes.length; i++) {
+
+        for (let i = 0; i < dbNotes.length; i++) {
             // cycles through each note from mongo
-            let databaseNote = databaseNotes[i]
-    
+            let dbNote = dbNotes[i]
+
             let note: any = {
-                _id: databaseNote._id,
-                noteTitle: databaseNote.noteTitle,
+                _id: dbNote._id,
+                noteTitle: dbNote.noteTitle,
                 private: false
             }
-    
+
             // checks if the note has password
             // notes with password will only have their ID and title visible
             // prior to password insertion
-            if (databaseNote.notePassword) {
+            if (dbNote.notePassword) {
                 note.private = true
                 notes.push(note)
                 continue
             }
-    
-            note.noteColor = databaseNote.noteColor
-            note.noteText = databaseNote.noteText
-    
+
+            note.noteColor = dbNote.noteColor
+            note.noteText = dbNote.noteText
+
             notes.push(note)
         }
-    
+
         return notes
     })
 
     app.get("/note/:id/", async (request, response) => {
         const params = request.params as NoteHttpParams
-    
+        const noteId = params.id
         try {
-            // tries to get note from mongodb
-            const note = await notesCollection.findOne({
-                _id: new ObjectId(params.id)
+            // tries to get note from database
+            const dbNote = await notesCollection.findOne({
+                _id: new ObjectId(noteId)
             })
-            
-            if (note === null) {
+
+            if (dbNote === null) {
                 // if note doesn't exist
                 response.code(404)
                 return
             }
-    
-            if (note?.password) {
-                // wip
+
+            let note = {
+                _id: dbNote._id,
+                noteTitle: dbNote.noteTitle,
+                noteText: dbNote.noteText,
+                noteColor: dbNote.noteColor
             }
-    
+
+            if (dbNote.notePassword) {
+                const allowedPrivateNotes = (
+                    await axios("http://localhost:7777/allowed_private_notes/")
+                ).data as Array<string>
+
+                // if the user has access to the private note
+                if (allowedPrivateNotes.includes(noteId)) return note
+
+                // if else, returns unauthorized
+                response.code(401)
+                return
+            }
+
             return note
         } catch (err) {
             // if url contains a bad ID
