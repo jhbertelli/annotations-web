@@ -9,7 +9,7 @@ An open source note management app. Originally planned to be released to phones,
 To run the web client, run these commands on your terminal:
 
 ```shell
-cd web
+cd client
 
 npm install
 npm run dev
@@ -18,7 +18,7 @@ npm run dev
 or
 
 ```shell
-cd web
+cd client
 
 yarn
 yarn dev

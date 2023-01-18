@@ -45,7 +45,7 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
             return
         } catch (err) {
             // if url contains a bad ID
-            response.code(404)
+            response.code(400)
             return err
         }
     })

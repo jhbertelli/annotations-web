@@ -14,10 +14,6 @@ import { AddNoteImg, NoNotes, NoNotesText, NotesContainer } from "./styles"
 import { NoteAttributes } from "../ViewNote"
 
 interface AllNotes extends NoteAttributes {
-    _id: string
-    noteTitle: string
-    noteColor: string
-    noteText: string
     private: boolean
 }
 
