@@ -49,8 +49,7 @@ export const privateNotesRoutes = async (app: FastifyInstance) => {
 
             // in case user inserts wrong password
             if (dbNote.notePassword !== formPassword) {
-                response.code(401)
-                return
+                return { success: false }
             }
         } catch (err) {
             // if url contains a bad ID
@@ -65,5 +64,7 @@ export const privateNotesRoutes = async (app: FastifyInstance) => {
         setTimeout(() => {
             allowedPrivateNotes.splice(allowedPrivateNotes.indexOf(noteId), 1)
         }, 1200000) // 20 min
+
+        return { success: true }
     })
 }

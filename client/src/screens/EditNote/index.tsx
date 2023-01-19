@@ -21,7 +21,7 @@ import {
 export default function CreateNote() {
     const noteId = window.location.pathname.split("/")[2]
     const [openCreatePassword, setOpenCreatePassword] = useState(false)
-    const [openDeleteNote, handleOpenDeleteNote] = useState(false)
+    const [openDeleteNote, setOpenDeleteNote] = useState(false)
     const [switchActive, setSwitchActive] = useState(false)
     const [textLengthNumber, setTextLengthNumber] = useState(4000)
     const [title, setTitle] = useState("")
@@ -35,6 +35,8 @@ export default function CreateNote() {
             setTitle(note.data.noteTitle)
             setText(note.data.noteText)
             setColor(note.data.noteColor)
+
+            if (note.data.private) setSwitchActive(true)
         }
         
         getNote()
@@ -108,7 +110,7 @@ export default function CreateNote() {
     const handleDeleteButtonClick = (e: BaseSyntheticEvent) => {
         e.preventDefault()
 
-        handleOpenDeleteNote(true)
+        setOpenDeleteNote(true)
     }
 
     const handleTitleChange = (e: BaseSyntheticEvent) => {
@@ -121,7 +123,6 @@ export default function CreateNote() {
             <Form
                 onSubmit={handleFormSubmit}
                 encType="multipart/form-data"
-                method="post"
             >
                 <TitleInput
                     id="title"
@@ -166,7 +167,7 @@ export default function CreateNote() {
 
                 <DeleteNoteModal
                     open={openDeleteNote}
-                    setOpen={handleOpenDeleteNote}
+                    setOpen={setOpenDeleteNote}
                     noteId={noteId}
                 />
             </Form>

@@ -60,10 +60,13 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
                 _id: dbNote._id,
                 noteTitle: dbNote.noteTitle,
                 noteText: dbNote.noteText,
-                noteColor: dbNote.noteColor
+                noteColor: dbNote.noteColor,
+                private: false
             }
 
             if (dbNote.notePassword) {
+                note.private = true
+
                 const allowedPrivateNotes = (
                     await axios("http://localhost:7777/allowed_private_notes/")
                 ).data as Array<string>

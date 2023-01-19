@@ -88,7 +88,6 @@ export default function CreateNote() {
             <Form
                 onSubmit={handleFormSubmit}
                 encType="multipart/form-data"
-                method="post"
             >
                 <TitleInput
                     id="title"

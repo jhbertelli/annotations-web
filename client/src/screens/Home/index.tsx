@@ -5,6 +5,7 @@ import axios from "axios"
 import Header from "../../components/Header"
 import Note from "../../components/Note"
 import PrivateNote from "../../components/PrivateNote"
+import InsertPasswordModal from "../../components/InsertPasswordModal"
 
 import Add from "../../assets/add.svg"
 import CreateNoteImage from "../../assets/plus-list.svg"
@@ -19,6 +20,13 @@ interface AllNotes extends NoteAttributes {
 
 export default function Home() {
     const [notes, setNotes] = useState<AllNotes[]>([])
+    const [openInsertPassword, setOpenInsertPassword] = useState(false)
+    const [privateNoteId, setPrivateNoteId] = useState("")
+
+    const handlePrivateNoteClick = (id: string) => {
+        setOpenInsertPassword(true)
+        setPrivateNoteId(id)
+    }
 
     useEffect(() => {
         const getNotes = async () => {
@@ -50,6 +58,9 @@ export default function Home() {
                                     <PrivateNote
                                         key={note._id}
                                         title={note.noteTitle}
+                                        onClick={() => {
+                                            handlePrivateNoteClick(note._id)
+                                        }}
                                     />
                                 )
 
@@ -64,6 +75,11 @@ export default function Home() {
                             )
                         })}
                     </Masonry>
+                    <InsertPasswordModal
+                        open={openInsertPassword}
+                        setOpen={setOpenInsertPassword}
+                        noteId={privateNoteId}
+                    />
                 </NotesContainer>
             )}
         </>

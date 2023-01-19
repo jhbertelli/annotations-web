@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export default function PrivateNote(props: Props) {
     return (
-        <PrivateNoteContainer>
+        <PrivateNoteContainer {...props}>
             <img src={LockImage} />
             <Title>{props.title}</Title>
         </PrivateNoteContainer>
