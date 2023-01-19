@@ -9,7 +9,8 @@ export default function validateNoteBody(body: Object) {
             noteTitle: { type: "string", maxLength: 40, minLength: 1 },
             noteColor: { type: "string", minLength: 7 },
             noteText: { type: "string", maxLength: 4000, minLength: 1 },
-            notePassword: { type: "string", maxLength: 20, minLength: 1 }
+            notePassword: { type: "string", maxLength: 20, minLength: 1 },
+            enablePassword: { type: "boolean" }
         },
         required: ["noteTitle", "noteColor", "noteText"],
         additionalProperties: false

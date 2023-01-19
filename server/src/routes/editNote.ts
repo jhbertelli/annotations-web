@@ -11,7 +11,11 @@ import validateNoteBody from "../utils/validateNoteBody"
 
 export const editNoteRoutes = async (app: FastifyInstance) => {
     app.put("/note/:id/edit/", async (request, response) => {
-        const formData = request.body as Note
+        interface EditNote extends Note {
+            enablePassword?: boolean
+        }
+
+        const formData = request.body as EditNote
         const params = request.params as NoteHttpParams
         const noteId = params.id
 
@@ -44,6 +48,11 @@ export const editNoteRoutes = async (app: FastifyInstance) => {
                     response.code(401)
                     return
                 }
+                
+                if (!formData.enablePassword) notesCollection.updateOne(
+                    { _id: new ObjectId(noteId) },
+                    { $unset: { notePassword: 1 } }   
+                )
             }
 
             notesCollection.updateOne(

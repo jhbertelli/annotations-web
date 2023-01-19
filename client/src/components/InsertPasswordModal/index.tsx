@@ -1,4 +1,4 @@
-import { FormEvent } from "react"
+import { FormEvent, useState } from "react"
 import axios from "axios"
 
 import GenericModal, { ModalProps } from "../GenericModal"
@@ -6,22 +6,27 @@ import ModalInput from "../ModalInput"
 
 import LockImage from "../../assets/lock.svg"
 
-import { Form, Lock, SubmitButton, Text } from "./styles"
+import { ErrorMessage, Form, Lock, SubmitButton, Text } from "./styles"
 
 interface Props extends ModalProps {
     noteId: string
 }
 
 export default function InsertPasswordModal(props: Props) {
+    const [errorMessage, setErrorMessage] = useState("")
+    const passwordInput = document.querySelector("#password") as HTMLInputElement
+
     const handleCloseModal = () => {
+        passwordInput.value = ""
+        
+        setErrorMessage("")
+
         props.setOpen(false)
     }
 
     const handleFormSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        const password = (
-            document.querySelector("#password") as HTMLInputElement
-        ).value
+        const password = passwordInput.value
 
         const form = {
             password
@@ -34,7 +39,10 @@ export default function InsertPasswordModal(props: Props) {
 
         const response = request.data
 
-        if (response.sucess) window.location.href = `/note/${props.noteId}/`
+        if (response.success)
+            return (window.location.href = `/note/${props.noteId}/`)
+
+        setErrorMessage("The provided password is wrong")
     }
 
     return (
@@ -47,6 +55,7 @@ export default function InsertPasswordModal(props: Props) {
                 {/* <h1>{props.noteId}</h1> */}
                 <Lock src={LockImage} alt="" />
                 <Text>Please enter this note’s password:</Text>
+                <ErrorMessage>{errorMessage}</ErrorMessage>
                 <ModalInput
                     placeholder="Password..."
                     id="password"

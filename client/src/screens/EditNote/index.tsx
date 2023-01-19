@@ -27,7 +27,7 @@ export default function CreateNote() {
     const [title, setTitle] = useState("")
     const [text, setText] = useState("")
     const [color, setColor] = useState("")
-    
+
     useEffect(() => {
         const getNote = async () => {
             const note = await axios(`http://localhost:7777/note/${noteId}/`)
@@ -38,7 +38,7 @@ export default function CreateNote() {
 
             if (note.data.private) setSwitchActive(true)
         }
-        
+
         getNote()
     }, [])
 
@@ -71,7 +71,7 @@ export default function CreateNote() {
 
     const handleFormSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        
+
         const noteTitle = (document.querySelector("#title") as HTMLInputElement)
             .value
         const noteColor = (
@@ -83,25 +83,31 @@ export default function CreateNote() {
         const notePassword = (
             document.querySelector("#password") as HTMLInputElement
         ).value
+        const enablePassword = document.querySelector(
+            "#activate-password"
+        ) as HTMLInputElement
 
         if (noteTitle === "" || noteColor === "" || noteText === "") return
+
+        const active = enablePassword.checked
 
         let form = {
             noteTitle,
             noteColor,
-            noteText
+            noteText,
+            enablePassword: active
         } as any
 
         if (notePassword.length > 0) form.notePassword = notePassword
 
         try {
-            const request = await axios.put(
+            const response = await axios.put(
                 `http://localhost:7777/note/${noteId}/edit/`,
                 form
             )
-
+            
             // redirects if note is edited successfully
-            if (request.status === 200) window.location.href = "/"
+            if (response.status === 200) window.location.href = "/"
         } catch (err) {
             console.error(err)
         }
@@ -120,10 +126,7 @@ export default function CreateNote() {
     return (
         <>
             <Header leftButton={{ image: BackButton, url: "../" }} />
-            <Form
-                onSubmit={handleFormSubmit}
-                encType="multipart/form-data"
-            >
+            <Form onSubmit={handleFormSubmit} encType="multipart/form-data">
                 <TitleInput
                     id="title"
                     name="title"
@@ -151,10 +154,16 @@ export default function CreateNote() {
                     <StyledSwitch
                         onInput={handleOpenCreatePassword}
                         checked={switchActive}
+                        name="activate-password"
+                        id="activate-password"
                     />
                 </EnablePasswordDiv>
 
-                <Button onClick={handleDeleteButtonClick} background="#E53232" style={{ marginBottom: 1 }}>
+                <Button
+                    onClick={handleDeleteButtonClick}
+                    background="#E53232"
+                    style={{ marginBottom: 1 }}
+                >
                     Delete note
                 </Button>
                 <Button background="#131A3C">Edit note</Button>

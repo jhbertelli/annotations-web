@@ -70,13 +70,13 @@ export default function CreateNote() {
         if (notePassword.length > 0) form.notePassword = notePassword
 
         try {
-            const request = await axios.post(
+            const response = await axios.post(
                 "http://localhost:7777/create_note/",
                 form
             )
             
             // redirects if note is created successfully
-            if (request.status === 201) window.location.href = "/"
+            if (response.status === 201) window.location.href = "/"
         } catch (err) {
             console.error(err)
         }
