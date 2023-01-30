@@ -6,14 +6,16 @@ import {
     NoAttachmentsText,
     NoAttachmentsImage,
     AddAttachmentButton,
-    ImagesInput,
-    ModalContainer
+    TempImagesInput,
+    ModalContainer,
+    ImagesInput
 } from "./styles"
 
 import { ModalProps } from "../GenericModal"
 
 import PicturesImage from "../../assets/images.svg"
 import CloseButtonImage from "../../assets/close.svg"
+import { BaseSyntheticEvent } from "react"
 
 export default function ImagesModal(props: ModalProps) {
     // slightly different from the generic modal component
@@ -21,6 +23,19 @@ export default function ImagesModal(props: ModalProps) {
     function handleCloseImagesModal() {
         // closes images modal
         props.setOpen(false)
+    }
+
+    const handleImagesInput = (e: BaseSyntheticEvent) => {
+        const imagesInput = document.querySelector(
+            "#attachments"
+        ) as HTMLInputElement
+        let files = imagesInput.files as FileList
+        
+        for (let i = 0; i < files.length; i++) {
+            console.log(files[i])
+        }
+    
+        console.log(files)
     }
 
     return (
@@ -49,13 +64,11 @@ export default function ImagesModal(props: ModalProps) {
                         Add attachment
                     </AddAttachmentButton>
                     <ImagesInput
-                        onChange={(e) => {
-                            console.log(e.target.files)
-                        }}
-                        name="attachments"
+                        onChange={handleImagesInput}
                         type="file"
-                        multiple
+                        name="attachments"
                         id="attachments"
+                        multiple
                     />
                 </Content>
             </ModalContainer>

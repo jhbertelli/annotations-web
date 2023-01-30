@@ -2,10 +2,12 @@ import { BaseSyntheticEvent, FormEvent, useState } from "react"
 import axios from "axios"
 
 import Header from "../../components/Header"
+import ImagesModal from "../../components/ImagesModal"
 import ColorsContainer from "../../components/ColorsContainer"
 import CreatePasswordModal from "../../components/CreatePasswordModal"
 import Button from "../../components/Button"
 
+import ImageButton from "../../assets/image.svg"
 import BackButton from "../../assets/back.svg"
 
 import {
@@ -18,9 +20,15 @@ import {
 } from "./styles"
 
 export default function CreateNote() {
+    const [openImagesModal, setOpenImagesModal] = useState(false)
     const [openCreatePassword, setOpenCreatePassword] = useState(false)
     const [switchActive, setSwitchActive] = useState(false)
     const [textLengthNumber, setTextLengthNumber] = useState(4000)
+
+    const handleOpenImagesModal = () => {
+        // opens images modal
+        setOpenImagesModal(true)
+    }
 
     const handleOpenCreatePassword = (e: BaseSyntheticEvent) => {
         // opens create password modal if the password switch is enabled
@@ -84,7 +92,13 @@ export default function CreateNote() {
 
     return (
         <>
-            <Header leftButton={{ image: BackButton, url: "/" }} />
+            <Header 
+                leftButton={{ image: BackButton, url: "/" }}
+                rightButton={{
+                    image: ImageButton,
+                    action: handleOpenImagesModal
+                }} 
+            />
             <Form
                 onSubmit={handleFormSubmit}
                 encType="multipart/form-data"
@@ -117,6 +131,11 @@ export default function CreateNote() {
                 </EnablePasswordDiv>
 
                 <Button background="#131A3C">Create note</Button>
+
+                <ImagesModal
+                    open={openImagesModal}
+                    setOpen={setOpenImagesModal}
+                />
 
                 <CreatePasswordModal
                     open={openCreatePassword}

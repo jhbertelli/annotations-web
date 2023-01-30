@@ -13,14 +13,14 @@ export const Lock = styled.img`
 `
 
 export const Text = styled.p`
-    padding-top: 0.75em;
+    padding: 0.75em 0;
     color: white;
     font: 500 12pt "Inter";
     text-align: center;
 `
 
 export const ErrorMessage = styled.p`
-    padding: 0.75em 0 0.75em 0;
+    padding-bottom: 1em;
     color: #E53232;
     font: 500 10pt "Inter";
     text-align: center;

@@ -6,6 +6,7 @@ export const ModalContainer = styled.div`
     color: white;
     background-color: #0e1428;
     border-radius: 20px;
+    padding: 0 !important;
 `
 
 export const Title = styled(DialogTitle)`
@@ -57,6 +58,10 @@ export const AddAttachmentButton = styled.label`
     color: white;
     background-color: #1c243e;
     border-radius: 4px;
+`
+
+export const TempImagesInput = styled.input`
+    display: none;
 `
 
 export const ImagesInput = styled.input`

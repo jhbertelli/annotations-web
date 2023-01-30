@@ -2,11 +2,13 @@ import { BaseSyntheticEvent, FormEvent, useEffect, useState } from "react"
 import axios from "axios"
 
 import Header from "../../components/Header"
+import ImagesModal from "../../components/ImagesModal"
 import ColorsContainer from "../../components/ColorsContainer"
 import CreatePasswordModal from "../../components/CreatePasswordModal"
 import Button from "../../components/Button"
 import DeleteNoteModal from "../../components/DeleteNoteModal"
 
+import ImageButton from "../../assets/image.svg"
 import BackButton from "../../assets/back.svg"
 
 import {
@@ -20,6 +22,7 @@ import {
 
 export default function CreateNote() {
     const noteId = window.location.pathname.split("/")[2]
+    const [openImagesModal, setOpenImagesModal] = useState(false)
     const [openCreatePassword, setOpenCreatePassword] = useState(false)
     const [openDeleteNote, setOpenDeleteNote] = useState(false)
     const [switchActive, setSwitchActive] = useState(false)
@@ -41,6 +44,11 @@ export default function CreateNote() {
 
         getNote()
     }, [])
+
+    const handleOpenImagesModal = () => {
+        // opens images modal
+        setOpenImagesModal(true)
+    }
 
     const handleOpenCreatePassword = (e: BaseSyntheticEvent) => {
         // opens create password modal if the password switch is enabled
@@ -105,7 +113,7 @@ export default function CreateNote() {
                 `http://localhost:7777/note/${noteId}/edit/`,
                 form
             )
-            
+
             // redirects if note is edited successfully
             if (response.status === 200) window.location.href = "/"
         } catch (err) {
@@ -125,7 +133,13 @@ export default function CreateNote() {
 
     return (
         <>
-            <Header leftButton={{ image: BackButton, url: "../" }} />
+            <Header
+                leftButton={{ image: BackButton, url: "../" }}
+                rightButton={{
+                    image: ImageButton,
+                    action: handleOpenImagesModal
+                }}
+            />
             <Form onSubmit={handleFormSubmit} encType="multipart/form-data">
                 <TitleInput
                     id="title"
@@ -167,6 +181,11 @@ export default function CreateNote() {
                     Delete note
                 </Button>
                 <Button background="#131A3C">Edit note</Button>
+
+                <ImagesModal
+                    open={openImagesModal}
+                    setOpen={setOpenImagesModal}
+                />
 
                 <CreatePasswordModal
                     open={openCreatePassword}
