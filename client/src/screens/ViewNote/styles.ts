@@ -28,3 +28,13 @@ export const Text = styled.pre`
     white-space: break-spaces;
     text-align: justify;
 `
+
+export const Main = styled.main`
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`

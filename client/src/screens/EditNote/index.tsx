@@ -6,6 +6,8 @@ import ColorsContainer from "../../components/ColorsContainer"
 import CreatePasswordModal from "../../components/CreatePasswordModal"
 import Button from "../../components/Button"
 import DeleteNoteModal from "../../components/DeleteNoteModal"
+import PrivateNoteError from "../../components/PrivateNoteError"
+import NoteNotFoundError from "../../components/NoteNotFoundError"
 
 import BackButton from "../../assets/back.svg"
 
@@ -15,7 +17,8 @@ import {
     TitleInput,
     EnablePasswordDiv,
     StyledSwitch,
-    TextLength
+    TextLength,
+    Main
 } from "./styles"
 
 export default function CreateNote() {
@@ -27,16 +30,25 @@ export default function CreateNote() {
     const [title, setTitle] = useState("")
     const [text, setText] = useState("")
     const [color, setColor] = useState("")
+    const [success, setSuccess] = useState(false)
+    const [privateNote, setPrivateNote] = useState(false)
 
     useEffect(() => {
         const getNote = async () => {
             const note = await axios(`http://localhost:7777/note/${noteId}/`)
 
-            setTitle(note.data.noteTitle)
-            setText(note.data.noteText)
-            setColor(note.data.noteColor)
+            if (note.data.success) {
+                setSuccess(true)
+                setTitle(note.data.noteTitle)
+                setText(note.data.noteText)
+                setColor(note.data.noteColor)
 
-            if (note.data.private) setSwitchActive(true)
+                if (note.data.private) setSwitchActive(true)
+            }
+
+            if (note.data.private) {
+                setPrivateNote(true)
+            }
         }
 
         getNote()
@@ -105,7 +117,7 @@ export default function CreateNote() {
                 `http://localhost:7777/note/${noteId}/edit/`,
                 form
             )
-            
+
             // redirects if note is edited successfully
             if (response.status === 200) window.location.href = "/"
         } catch (err) {
@@ -123,63 +135,74 @@ export default function CreateNote() {
         setTitle(e.target.value)
     }
 
+    if (success)
+        return (
+            <>
+                <Header leftButton={{ image: BackButton, url: "../" }} />
+                <Form onSubmit={handleFormSubmit} encType="multipart/form-data">
+                    <TitleInput
+                        id="title"
+                        name="title"
+                        placeholder="Insert this note's title here..."
+                        maxLength={40}
+                        value={title}
+                        onInput={handleTitleChange}
+                    />
+
+                    <ColorsContainer defaultColor={color} />
+
+                    <NoteTextArea
+                        id="note-text"
+                        name="note-text"
+                        placeholder="Write your text here..."
+                        maxLength={4000}
+                        value={text}
+                        onInput={handleTextInput}
+                    />
+
+                    <TextLength>{textLengthNumber}</TextLength>
+
+                    <EnablePasswordDiv>
+                        <p>Enable password:</p>
+                        <StyledSwitch
+                            onInput={handleOpenCreatePassword}
+                            checked={switchActive}
+                            name="activate-password"
+                            id="activate-password"
+                        />
+                    </EnablePasswordDiv>
+
+                    <Button
+                        onClick={handleDeleteButtonClick}
+                        background="#E53232"
+                        style={{ marginBottom: 1 }}
+                    >
+                        Delete note
+                    </Button>
+                    <Button background="#131A3C">Edit note</Button>
+
+                    <CreatePasswordModal
+                        open={openCreatePassword}
+                        setOpen={setOpenCreatePassword}
+                        setSwitchStatus={setSwitchActive}
+                    />
+
+                    <DeleteNoteModal
+                        open={openDeleteNote}
+                        setOpen={setOpenDeleteNote}
+                        noteId={noteId}
+                    />
+                </Form>
+            </>
+        )
+
+    // in case note doesn't exist/is private
     return (
         <>
-            <Header leftButton={{ image: BackButton, url: "../" }} />
-            <Form onSubmit={handleFormSubmit} encType="multipart/form-data">
-                <TitleInput
-                    id="title"
-                    name="title"
-                    placeholder="Insert this note's title here..."
-                    maxLength={40}
-                    value={title}
-                    onInput={handleTitleChange}
-                />
-
-                <ColorsContainer defaultColor={color} />
-
-                <NoteTextArea
-                    id="note-text"
-                    name="note-text"
-                    placeholder="Write your text here..."
-                    maxLength={4000}
-                    value={text}
-                    onInput={handleTextInput}
-                />
-
-                <TextLength>{textLengthNumber}</TextLength>
-
-                <EnablePasswordDiv>
-                    <p>Enable password:</p>
-                    <StyledSwitch
-                        onInput={handleOpenCreatePassword}
-                        checked={switchActive}
-                        name="activate-password"
-                        id="activate-password"
-                    />
-                </EnablePasswordDiv>
-
-                <Button
-                    onClick={handleDeleteButtonClick}
-                    background="#E53232"
-                    style={{ marginBottom: 1 }}
-                >
-                    Delete note
-                </Button>
-                <Button background="#131A3C">Edit note</Button>
-
-                <CreatePasswordModal
-                    open={openCreatePassword}
-                    setOpen={setOpenCreatePassword}
-                    setSwitchStatus={setSwitchActive}
-                />
-
-                <DeleteNoteModal
-                    open={openDeleteNote}
-                    setOpen={setOpenDeleteNote}
-                    noteId={noteId}
-                />
-            </Form>
+            <Header leftButton={{ image: BackButton, url: "/" }} />
+            <Main>
+                {privateNote ? <PrivateNoteError /> : <NoteNotFoundError />}
+            </Main>
         </>
     )
 }

@@ -66,3 +66,13 @@ export const TextLength = styled.p`
     text-align: right;
     margin: 0.25em 0;
 `
+
+export const Main = styled.main`
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`

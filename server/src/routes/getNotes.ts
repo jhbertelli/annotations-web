@@ -52,8 +52,7 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
 
             if (dbNote === null) {
                 // if note doesn't exist
-                response.code(404)
-                return
+                return { success: false }
             }
 
             let note = {
@@ -61,7 +60,8 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
                 noteTitle: dbNote.noteTitle,
                 noteText: dbNote.noteText,
                 noteColor: dbNote.noteColor,
-                private: false
+                private: false,
+                success: true
             }
 
             if (dbNote.notePassword) {
@@ -73,16 +73,14 @@ export const getNoteRoutes = async (app: FastifyInstance) => {
 
                 // if the user doesn't have access to the private note, returns unauthorized
                 if (!allowedPrivateNotes.includes(noteId)) {
-                    response.code(401)
-                    return
+                    return { success: false, private: true }
                 }
             }
 
             return note
         } catch (err) {
             // if url contains a bad ID
-            response.code(400)
-            return err
+            return { success: false }
         }
     })
 }
